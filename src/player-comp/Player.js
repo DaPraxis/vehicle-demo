@@ -5,6 +5,9 @@ import Controller from './Controller';
 import {convertHexToRgbA} from './utils'
 import screenfull from 'screenfull'
 import './Player.css';
+import SpeechToText from './SpeechToText'
+
+
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -296,6 +299,7 @@ export default class Player extends Component {
                             // }
                     }}
                     />
+                <SpeechToText currTime = {this.state.playedSeconds} playing = {this.state.playing}/>
                 </div>
             </div>
             );

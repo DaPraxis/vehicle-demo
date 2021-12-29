@@ -1,7 +1,6 @@
 import './App.css';
 import React from 'react'
 import Player from './player-comp/Player'
-
 class App extends React.Component {
     constructor(props) {
         super(props);
