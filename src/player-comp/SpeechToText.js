@@ -14,7 +14,7 @@ export default function SpeechToText(props) {
     useLegacyResults: false
   });
 
-  const [startTime, setStartTime] = useState(Infinity)
+  const [startTime, setStartTime] = useState(0)
   const [lastPlay, setLastPlay] = useState(false)
 
   // if (props.playing && !lastPlay){
@@ -26,6 +26,11 @@ export default function SpeechToText(props) {
   //   setLastPlay(!lastPlay)
   // }
 
+  if (props.currTime>0 && !lastPlay){
+    setStartTime(Date.now())
+    setLastPlay(true)
+  }
+
   props.playing? startSpeechToText():stopSpeechToText()
 
 
@@ -33,8 +38,8 @@ export default function SpeechToText(props) {
     <div>
       <ul>
         {results.map(function(result){
-          var date = new Date((result.timestamp)*1000)
-          var form = "Date: "+date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()
+          var date = new Date(result.timestamp*1000-startTime)
+          var form = date.getMinutes()*60+Math.round(date.getSeconds())+"s"
           return(<li key={result.timestamp}>{ form+ ": " + result.transcript}</li>)
         })}
         {interimResult && <li>{interimResult}</li>}

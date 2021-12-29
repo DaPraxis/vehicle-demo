@@ -55,7 +55,7 @@ export default class Player extends Component {
         lastTime: 0,
         playedSeconds: 0,
         ma_10hz: [],
-        ma_20hz: []
+        ma_20hz: [],
     }
 
     constructor(props) {
