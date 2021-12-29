@@ -198,8 +198,8 @@ export default class Player extends Component {
                         lastTime: this.state.playedSeconds , 
                         wl: [...preState.wl, this.state.wlValue],
                         ma: [...preState.ma, this.average(preState.wl)],
-                        ma_10hz: [...preState.ma_10hz, this.lastNSlices(preState.wl, 10)],
-                        ma_20hz: [...preState.ma_20hz, this.lastNSlices(preState.wl, 20)],
+                        ma_10hz: [...preState.ma_10hz, this.lastNSlices(preState.wl, 8)],
+                        ma_20hz: [...preState.ma_20hz, this.lastNSlices(preState.wl, 40)],
                         timeSeries: [...preState.timeSeries, Math.round(this.state.playedSeconds*100)/100]}))
         }
         let {theme, width, height, metadata, style, url} = this.props;
@@ -261,7 +261,7 @@ export default class Player extends Component {
                                         data: this.state.ma
                                         },
                                     {
-                                        label: 'Moving Average 10Hz',
+                                        label: 'Moving Average 1s Window',
                                         fill: true,
                                         lineTension: 0.5,
                                         backgroundColor: 'rgba(75,192,0,0.5)',
@@ -270,7 +270,7 @@ export default class Player extends Component {
                                         data: this.state.ma_10hz
                                     },
                                     {
-                                        label: 'Moving Average 20Hz',
+                                        label: 'Moving Average 5s Window',
                                         fill: true,
                                         lineTension: 0.5,
                                         backgroundColor: 'rgba(192,192,0,0.5)',
