@@ -17,8 +17,6 @@ export default function SpeechToText(props) {
   const [startTime, setStartTime] = useState(Infinity)
   const [lastPlay, setLastPlay] = useState(false)
 
-  useEffect(()=>{startSpeechToText()})
-
   if (props.playing && !lastPlay){
     startSpeechToText()
     setLastPlay(!lastPlay)
