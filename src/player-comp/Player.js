@@ -27,7 +27,6 @@ ChartJS.register(
     Tooltip,
     Legend
   );
-
 export default class Player extends Component {
 
     alteredOnPlay = undefined;
@@ -68,7 +67,6 @@ export default class Player extends Component {
         this.playPause = this.playPause.bind(this)
         this.handleClickFullscreen = this.handleClickFullscreen.bind(this)
         this.handleSliderChanges = this.handleSliderChanges.bind(this)
-
     }
 
     setAlteredProps(props) {
