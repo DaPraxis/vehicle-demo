@@ -1,56 +1,43 @@
 import './App.css';
 import React from 'react'
-import Player from './player-comp/Player'
+// import Player from './player-comp/Player'
+import VideoPlayPage from './pages/VideoPlayPage'
+import MultiStepForm from './Components/MultiStepForm';
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: '', url: ""};
-        this.handleChange = this.handleChange.bind(this);
-        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({value: event.target.value});
+    state = {
+        page: 1,
     }
 
-    handleKeyPress(event) {
-        if (event.code == "Enter" || event.key == "Enter") {
-            this.setState({url: this.state.value})
-        }
+    nextPage = () => {
+        const { page } = this.state
+        this.setState({
+            page : page + 1
+        })
     }
 
     render() {
-        return (
+        const {page} = this.state;
+        const inputValues = {page};
+        var content
+        switch(page) {
+        case 1:
+            content = <MultiStepForm nextPage={this.nextPage}/>
+            break
+        case 2:
+            content = <VideoPlayPage/>
+            break
+        case 3:
+            break
+        }
+        return(
             <div className="App">
-                <div className="Section">
-                    <div className="form_group field">
-                        <input type="input" className="form_field" placeholder="Name" name="Link" id='name'
-                               value={this.state.value} onChange={this.handleChange} onKeyPress={this.handleKeyPress}
-                               required/>
-                        <label htmlFor="name" className="form__label">Link</label>
-                    </div>
-                    <br/>
-                    {this.state.url.length > 0 &&
-                    <div >
-                        <Player url={this.state.url}
-                            style={{"left": "15%"}}
-                            playing={true}
-                            metadata={{
-                                title: " ",
-                                subtitle: " "
-                            }}
-                            theme={{
-                                bgColor: "#000000",
-                                textColor: "#ffffff",
-                                // topBarHeight: "70px",
-                                bottomBarHeight: "50px",
-                                highlightColor: "#ff0000"
-                            }}/> 
-                    </div>
-                    }
-                </div>
+                {content}
             </div>
-        );
+        )
     }
 }
 
