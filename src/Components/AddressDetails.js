@@ -119,6 +119,7 @@ export default class AddressDetails extends Component{
                                     <option value=">66"> &gt;66 years</option>
                                 </Form.Control>
                             </Form.Group>
+                            
                             <Form.Group as={Col} controlId="formGender">
                                 <Form.Label>Gender</Form.Label>
                                 <Form.Control as="select" name="gender" value={this.props.inputValues.gender} 
