@@ -1,9 +1,10 @@
 import React from 'react'
-import Player from '../player-comp/Player'
-class VideoPlayPage extends React.Component {
+import PlayerUser from '../player-comp/PlayerUser';
+import Player from '../player-comp/PlayerUser'
+class VideoPlayUserPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: '', url: ""};
+        this.state = {value: '', url: "https://youtu.be/3Oj8ucMgDpw"};
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
@@ -21,17 +22,17 @@ class VideoPlayPage extends React.Component {
     render() {
         return (
             <div className="Section">
-                <div className="form_group field">
+                {/* <div className="form_group field">
                     <input type="input" className="form_field" placeholder="Name" name="Link" id='name'
                             value={this.state.value} onChange={this.handleChange} onKeyPress={this.handleKeyPress}
                             required/>
                     <label htmlFor="name" className="form__label">Link</label>
                 </div>
-                <br/>
+                <br/> */}
                 {this.state.url.length > 0 &&
                 <div >
-                    <Player url={this.state.url}
-                        style={{"left": "5%"}}
+                    <PlayerUser url={this.state.url}
+                        // style={{"left": "5%"}}
                         playing={true}
                         metadata={{
                             title: " ",
@@ -51,4 +52,4 @@ class VideoPlayPage extends React.Component {
     }
 }
 
-export default VideoPlayPage;
+export default VideoPlayUserPage;

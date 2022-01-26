@@ -6,6 +6,7 @@ import {convertHexToRgbA} from './utils'
 import screenfull from 'screenfull'
 import './Player.css';
 import SpeechToText from './SpeechToText'
+import GaugeChart from 'react-gauge-chart'
 
 
 import {
@@ -30,7 +31,7 @@ ChartJS.register(
     Tooltip,
     Legend
   );
-export default class Player extends Component {
+export default class PlayerUser extends Component {
 
     alteredOnPlay = undefined;
     alteredProps = undefined;
@@ -42,10 +43,10 @@ export default class Player extends Component {
         playing: true,
         paused: true,
         setPlaying: true,
-        fullscreen: false,
+        fullscreen: true,
         setSeek: 0,
         duration: 0,
-        wlValue: 2, // start workload value
+        wlValue: 1, // start workload value
         color: null, // start safe workload 
         maxWl: 20,
         minWl: 1,
@@ -70,7 +71,6 @@ export default class Player extends Component {
         this.playPause = this.playPause.bind(this)
         this.handleClickFullscreen = this.handleClickFullscreen.bind(this)
         this.handleSliderChanges = this.handleSliderChanges.bind(this)
-        this.colorChanges = this.colorChanges.bind(this)
     }
 
     setAlteredProps(props) {
@@ -97,10 +97,21 @@ export default class Player extends Component {
                 this.setState({fullscreen: screenfull.isFullscreen});
             });
         }
+        // if (!screenfull.isFullscreen) {
+        //     screenfull.exit()
+        // } else {
+        //     screenfull.request(findDOMNode(this.playerViewRef));
+        // }
+        // screenfull.isEnabled = true
+        // if (screenfull.isEnabled) {
+        //     screenfull.request(findDOMNode(this.playerViewRef));
+        // }
+        
     }
 
 
     handleKeyDown = (event) => {
+        event.preventDefault()
         // if (event.code === 'Space') {
         //     this.playPause();
         // }
@@ -178,7 +189,6 @@ export default class Player extends Component {
 
     colorChanges(val){
         var col = (1-(val-1)/(this.state.maxWl-this.state.minWl+1))*120
-        console.log(col, val)
         var color = `hsl(${col}, 100%, 50%)`
         // var color = ""
         // if (val <=3){
@@ -206,7 +216,26 @@ export default class Player extends Component {
         return arr.length<=n? this.average(arr) : this.average(arr.slice(n*(-1)))
     }
 
+    overlayStyle = {
+        'height':'100%',
+        'width': '100%',
+        'position': 'absolute',
+        'top': '0px',
+        'left': '0px',
+        'z-index': '2',
+    }
+
+    overlayStyle2 = {
+        'height':'10%',
+        'width': '10%',
+        'position': 'absolute',
+        'top': '50%',
+        'right': '0px',
+        'z-index': '3',
+    }
+
     render() {
+
         if (this.state.playedSeconds!=this.state.lastTime){
             this.setState(preState=>({...this.state, 
                         lastTime: this.state.playedSeconds , 
@@ -224,8 +253,12 @@ export default class Player extends Component {
         this.alteredProps = {
             ...this.alteredProps,
             playing: this.state.setPlaying,
-            width: "1280px",
-            height: "720px",
+            // width: "1280px",
+            // height: "720px",
+            // width: width,
+            // height: height,
+            width: window.innerWidth-6+"px",
+            height: window.innerHeight-6+"px",
             style: style,
             url: url
         }
@@ -233,16 +266,37 @@ export default class Player extends Component {
         return (
             <div style={{"display":"flex", "flex-direction":"column", "align-items":"center"}} onKeyDown={this.keydownHandler}>
                 <div className="player-wrapper" ref={(r) => this.playerViewRef = r}>
+                    <div class="overlay" style={this.overlayStyle}></div>
+                    <GaugeChart id="gauge-chart2" 
+                        nrOfLevels={this.state.maxWl-this.state.minWl+1} 
+                        percent={(this.state.wlValue-this.state.minWl)/(this.state.maxWl-this.state.minWl+1)} 
+                        animate={false} 
+                        style = {this.overlayStyle2}
+                    />
                     <ReactPlayer className='react-player' style={style}
                                 {...this.alteredProps}
                                 playing={this.state.setPlaying}
+                                controls={false}
+                                config={{
+                                    youtube: {
+                                        playerVars: { 
+                                            disablekb: 1,
+                                            modestbranding: 1,
+                                            // showinfo: 0,
+                                            enablejsapi: 0
+                                        }
+                                    },
+                                    facebook: {
+                                        appId: '12345'
+                                    }
+                                }}
                                 ref={(r) => this.playerRef = r}/>
                     {/* <Controller theme={theme} metadata={metadata} style={style}
                                 playPause={this.playPause} width={width} height={height}
                                 handleClickFullscreen={this.handleClickFullscreen}
                                 playerState={this.state} setSeek={(e, t) => this.setSeek(e, t)}/> */}
                 </div>
-                <div style={Object.assign({"width":"70%"}, style)}>
+                {/* <div style={Object.assign({"width":"70%"}, style)}>
                     <h4 htmlFor="customRange1" style={{"margin-top":"2%"}}> Mental Workload: <bold><strong 
                     style={{
                         "width": "30px",
@@ -251,9 +305,9 @@ export default class Player extends Component {
                         "text-align": "center",
                         "background-color":this.state.color}}>{this.state.wlValue}</strong></bold></h4>
                     <input value={this.state.wlValue} type="range" className="custom-range" id="customRange1" step="1" min={this.state.minWl.toString()} max={this.state.maxWl.toString()} onChange={this.handleSliderChanges}/>
-                </div>
+                </div> */}
                 <div style={Object.assign({"width":"70%"}, style)}>
-                    <Line
+                    {/* <Line
                         data={{labels: this.state.timeSeries,
                                 datasets: [
                                     {
@@ -311,8 +365,8 @@ export default class Player extends Component {
                             //     }
                             // }
                     }}
-                    />
-                <SpeechToText currTime = {this.state.playedSeconds} playing = {this.state.playing}/>
+                    /> */}
+                {/* <SpeechToText currTime = {this.state.playedSeconds} playing = {this.state.playing}/> */}
                 </div>
             </div>
             );
