@@ -33,12 +33,12 @@ export default class AddressDetails extends Component{
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formState" required>
-                                <Form.Label>State</Form.Label>
+                                <Form.Label>Province</Form.Label>
                                 <Form.Control as="select" name="state" value={this.props.inputValues.state} onChange={this.props.handleChange}>
                                     <option hidden value="">
                                         Select...
                                     </option>
-                                    <option value="AL">Alabama</option>
+                                    {/* <option value="AL">Alabama</option>
                                     <option value="AK">Alaska</option>
                                     <option value="AZ">Arizona</option>
                                     <option value="AR">Arkansas</option>
@@ -88,7 +88,19 @@ export default class AddressDetails extends Component{
                                     <option value="WA">Washington</option>
                                     <option value="WV">West Virginia</option>
                                     <option value="WI">Wisconsin</option>
-                                    <option value="WY">Wyoming</option>
+                                    <option value="WY">Wyoming</option> */}
+                                    <option value="AB">Alberta</option>
+                                    <option value="BC">British Columbia</option>
+                                    <option value="YT">Yukon</option>
+                                    <option value="NT">Northwest Territories</option>
+                                    <option value="NU">Nunavut</option>
+                                    <option value="NL">Newfoundland and Labrador</option>
+                                    <option value="PE">Prince Edward Island</option>
+                                    <option value="NS">Nova Scotia</option>
+                                    <option value="QC">Quebec</option>
+                                    <option value="ON">Ontario</option>
+                                    <option value="MB">Manitoba</option>
+                                    <option value="SK">Saskatchewan</option>
                                 </Form.Control>
                             </Form.Group>
 
@@ -134,7 +146,7 @@ export default class AddressDetails extends Component{
                             </Form.Group>
                         </Row>
                         <Row>
-                            <Form.Group controlId="formDrivingYrs">
+                            <Form.Group as={Col} controlId="formDrivingYrs">
                                     <Form.Label>How many years have you been driving (from the year you got your driving license)?</Form.Label>
                                     <Form.Control as="select" name="driveYrs" value={this.props.inputValues.driveYrs} 
                                         onChange={this.props.handleChange} required>
@@ -149,7 +161,7 @@ export default class AddressDetails extends Component{
                             </Form.Group>
                         </Row>
                         <Row>
-                            <Form.Group controlId="formDrivingFreq">
+                            <Form.Group as={Col} controlId="formDrivingFreq">
                                     <Form.Label>How frequent do you drive?</Form.Label>
                                     <Form.Control as="select" name="driveFreq" value={this.props.inputValues.driveFreq} 
                                         onChange={this.props.handleChange} required>
