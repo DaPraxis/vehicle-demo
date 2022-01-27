@@ -4,6 +4,8 @@ import React from 'react'
 import VideoPlayPage from './pages/VideoPlayPage'
 import MultiStepForm from './Components/MultiStepForm';
 import VideoPlayUserPage from './pages/VideoPlayUserPage';
+import InstructionPage from './pages/InstructionPage';
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -29,10 +31,13 @@ class App extends React.Component {
             content = <MultiStepForm nextPage={this.nextPage}/>
             break
         case 2:
+            content = <InstructionPage nextPage={this.nextPage}/>
+            break
+        case 3:
             // content = <VideoPlayPage/>
             content = <VideoPlayUserPage/>
             break
-        case 3:
+        case 4:
             break
         }
         return(

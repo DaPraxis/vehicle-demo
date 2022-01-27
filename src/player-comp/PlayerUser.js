@@ -7,6 +7,7 @@ import screenfull from 'screenfull'
 import './Player.css';
 import SpeechToText from './SpeechToText'
 import GaugeChart from 'react-gauge-chart'
+import GaugeComponent from '../Components/GaugeComponent';
 
 
 import {
@@ -267,12 +268,13 @@ export default class PlayerUser extends Component {
             <div style={{"display":"flex", "flex-direction":"column", "align-items":"center"}} onKeyDown={this.keydownHandler}>
                 <div className="player-wrapper" ref={(r) => this.playerViewRef = r}>
                     <div class="overlay" style={this.overlayStyle}></div>
-                    <GaugeChart id="gauge-chart2" 
+                    {/* <GaugeChart id="gauge-chart2" 
                         nrOfLevels={this.state.maxWl-this.state.minWl+1} 
                         percent={(this.state.wlValue-this.state.minWl)/(this.state.maxWl-this.state.minWl+1)} 
                         animate={false} 
                         style = {this.overlayStyle2}
-                    />
+                    /> */}
+                    <GaugeComponent initWl={0} maxWl={20} minWl={0} style={this.overlayStyle2} textColor={'white'}/>
                     <ReactPlayer className='react-player' style={style}
                                 {...this.alteredProps}
                                 playing={this.state.setPlaying}
